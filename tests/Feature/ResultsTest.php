@@ -21,7 +21,7 @@ class ResultsTest extends TestCase
             ->soleValue('id');
 
         $this
-            ->postJson('/results', [
+            ->postJson('/api/v1/results', [
                 'driver_id' => $driverId,
                 'sector_1' => '25.344',
                 'sector_2' => '25.704',
@@ -55,7 +55,7 @@ class ResultsTest extends TestCase
     public function testItValidatesDriverExists(): void
     {
         $this
-            ->postJson('/results', [
+            ->postJson('/api/v1/results', [
                 'driver_id' => 1,
             ])
             ->assertInvalid([
@@ -70,7 +70,7 @@ class ResultsTest extends TestCase
     public function testItValidatesSectorTimes(mixed $input): void
     {
         $this
-            ->postJson('/results', [
+            ->postJson('/api/v1/results', [
                 'sector_1' => $input,
                 'sector_2' => $input,
                 'sector_3' => $input,
@@ -86,7 +86,7 @@ class ResultsTest extends TestCase
     public function testItValidatesLapTotal(mixed $input): void
     {
         $this
-            ->postJson('/results', [
+            ->postJson('/api/v1/results', [
                 'lap_total' => $input,
             ])
             ->assertInvalid(['lap_total']);
@@ -97,7 +97,7 @@ class ResultsTest extends TestCase
         $this->seed(ResultsSeeder::class);
 
         $this
-            ->getJson('/results')
+            ->getJson('/api/v1/results')
             ->assertOk()
             ->assertExactJson([
                 'data' => [
